@@ -26,14 +26,21 @@ export default class Home extends Component {
             dataSets: [],
             indicators: [],
             loading: true,
-            inputDE: ''
+            inputDataEl: '',
+            inputPro: '',
+            inputInd: '',
+            inputDataSet: ''
+            
         }
 
         this.filterDataElements = this.filterDataElements.bind(this);
+        this.filterPrograms = this.filterPrograms.bind(this);
+        this.filterDataSets = this.filterDataSets.bind(this);
+        this.filterIndicators = this.filterIndicators.bind(this);
     }
 
     componentWillMount() {
-        this.getMetada().then( data => {
+        this.getMetadata().then( data => {
             this.setState({
                 dataElements: data.dataElements,
                 programs: data.programs,
@@ -44,8 +51,8 @@ export default class Home extends Component {
         });
     }
 
-    getMetada() {
-        return fetch(baseUrl+'/api/metadata.json?dataElements=true&programs=true&dataSets=true&indicators=true&fields=:idName&pageSize=50', {
+    getMetadata() {
+        return fetch(baseUrl+'/api/metadata.json?dataElements=true&programs=true&dataSets=true&indicators=true&fields=:idName&paging=false', {
             headers: headerOptions
         })
             .then(response => response.json())
@@ -55,17 +62,39 @@ export default class Home extends Component {
             });
     }
 
+    filterPrograms(e){
+        this.setState({
+            inputPro: e.target.value,
+          });
+        }
+    
+    
+    filterIndicators(e){
+        this.setState({
+            inputInd: e.target.value,
+        });
+        }
+
+    filterDataSets(e){
+        this.setState({
+            inputDataSet: e.target.value,
+            });
+        }
+
     filterDataElements(e){
         this.setState({
-            inputDE: e.target.value,
+            inputDataEl: e.target.value,
           });
-          if(e.target.value){
-                this.getMetaDataByName('dataElements', e.target.value)
-                    .then( response => {
-                        this.setState({ dataElements: response.dataElements});
-                    });
-                console.log(this.state.inputDE);
-          }
+        //   if(e.target.value){
+        //         this.getMetaDataByName('dataElements', e.target.value)
+        //             .then( response => {
+        //                 this.setState({ dataElements: response.dataElements});
+        //             });
+        //         console.log(this.state.inputDE);
+        //   }
+        //   else {
+              
+        //   }
     }
 
     getMetaDataByName(metaType,value){
@@ -84,11 +113,26 @@ export default class Home extends Component {
         render(){
 
             if(this.state.loading){
-                return (<CircularProgress className="home-loader" size={80} thickness={5} />
-            );
+                    return (<CircularProgress className="home-loader" size={80} thickness={5} />
+                );
             }
             else {
-                const { dataElements } = this.state;
+                const dataElements  = this.state.dataElements.filter(dataElement => {
+                                    return dataElement.displayName.toString().toLowerCase().includes(this.state.inputDataEl.toLowerCase()) || dataElement.id.toString().includes(this.state.inputDataEl.toLowerCase());
+                                });
+
+                const programs  = this.state.programs.filter(program => {
+                                    return program.displayName.toString().toLowerCase().includes(this.state.inputPro.toLowerCase()) || program.id.toString().includes(this.state.inputPro.toLowerCase());
+                                });
+
+                const dataSets  = this.state.dataSets.filter(dataSet => {
+                                    return dataSet.displayName.toString().toLowerCase().includes(this.state.inputDataSet.toLowerCase()) || dataSet.id.toString().includes(this.state.inputDataSet.toLowerCase());
+                                });
+
+                const indicators  = this.state.indicators.filter(indicator => {
+                                    return indicator.displayName.toString().toLowerCase().includes(this.state.inputInd.toLowerCase()) || indicator.id.toString().includes(this.state.inputInd.toLowerCase());
+                                });
+
                     return (<div>
                                 <Toolbar className="Home-toolbar" >
                                     <TextField
@@ -97,12 +141,12 @@ export default class Home extends Component {
                                         />
                                 </Toolbar>
                                 <DataElementsList filterDataElements={this.filterDataElements} dataElements={dataElements} />
-                                <ProgramsList programs={this.state.programs} />
-                                <DataSetList dataSets={this.state.dataSets} />
-                                <IndicatorsList indicators={this.state.indicators} />
+                                <ProgramsList programs={programs}  filterPrograms={this.filterPrograms}  />
+                                <DataSetList dataSets={dataSets} filterDataSets={this.filterDataSets}  />
+                                <IndicatorsList indicators={indicators} filterIndicators={this.filterIndicators}/>
                             </div>);
                         }
-        }
+            }
 
 
-}
+    }

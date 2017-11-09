@@ -6,6 +6,8 @@ import {Card, CardActions, CardHeader} from 'material-ui/Card';
 
 import Subheader from 'material-ui/Subheader';
 import Toggle from 'material-ui/Toggle';
+import TextField from 'material-ui/TextField';
+
 
 const styles = {
     root: {
@@ -35,10 +37,15 @@ export default class DataSetList extends Component {
     
 
         render(){
-            const { dataSets } = this.props;
+            const { dataSets, filterDataSets } = this.props;
              return (<div>
                             <div style={styles.root}>
                                 <Subheader className="home-subheader" inset={true}>DATA SETS</Subheader>
+                                <TextField
+                                            hintText="Please type..."
+                                            className="filter-input-item"
+                                            onChange={filterDataSets}
+                                            />
                                 <GridList style={styles.gridList} cols={3.2} padding={2}>
                                 {dataSets.map((dataSet) => (
                                                 <Card style={styles.card} key={dataSet.id}>

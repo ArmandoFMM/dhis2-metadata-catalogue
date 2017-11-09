@@ -6,6 +6,8 @@ import {Card, CardActions, CardHeader} from 'material-ui/Card';
 
 import Subheader from 'material-ui/Subheader';
 import Toggle from 'material-ui/Toggle';
+import TextField from 'material-ui/TextField';
+
 
 const styles = {
     root: {
@@ -35,10 +37,16 @@ export default class IndicatorsList extends Component {
     
 
         render(){
-            const { indicators } = this.props;
+            const { indicators, filterIndicators } = this.props;
+            
              return (<div>
                             <div style={styles.root}>
                                 <Subheader className="home-subheader" inset={true}>INDICATOR</Subheader>
+                                <TextField
+                                            hintText="Please type..."
+                                            className="filter-input-item"
+                                            onChange={filterIndicators}
+                                            />
                                 <GridList style={styles.gridList} cols={3.2} padding={2}>
                                 {indicators.map((indicator) => (
                                                 <Card style={styles.card} key={indicator.id}>
