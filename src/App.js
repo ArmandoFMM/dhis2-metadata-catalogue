@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
@@ -31,7 +30,7 @@ class App extends Component {
 
               <Drawer open={this.state.open}>
                 <MenuItem>Home</MenuItem>
-                <MenuItem>My Packages</MenuItem>
+                <MenuItem>My Catalogs</MenuItem>
                 <MenuItem>Settings</MenuItem>
                 <RaisedButton className="toggle-drawer" label="CLOSE" primary={true} onClick={this.handleToggle}
                  />

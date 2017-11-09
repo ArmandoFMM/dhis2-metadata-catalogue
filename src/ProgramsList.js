@@ -5,7 +5,6 @@ import {GridList} from 'material-ui/GridList';
 import {Card, CardActions, CardHeader} from 'material-ui/Card';
 
 import Subheader from 'material-ui/Subheader';
-import Divider from 'material-ui/Divider';
 import Toggle from 'material-ui/Toggle';
 
 const styles = {
