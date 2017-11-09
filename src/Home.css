@@ -1,0 +1,26 @@
+
+.Home-toolbar{
+    margin-top: 20px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(245, 244, 244) !important; 
+  }
+
+.filter-input {
+    width: 90% !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.home-loader {
+    width: 20%;    
+    margin-left: 40%;
+    margin-right: 40%;
+    margin-top: 100px; 
+}
+
+.home-subheader {
+    margin-top: 60px; 
+    margin-left: 10%; 
+}
