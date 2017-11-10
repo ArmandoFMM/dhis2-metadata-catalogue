@@ -6,6 +6,9 @@ import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import Home from './Home';
+import MyCatalogue from './MyCatalogue';
+import { Link, Route } from 'react-router-dom';
+
 
 class App extends Component {
 
@@ -21,20 +24,24 @@ class App extends Component {
           <MuiThemeProvider>
             <div>
             <AppBar
-                title="Metadata Catalog"
+                title="Metadata Catalogue"
                 className="App-navbar"
                 iconClassNameRight="muidocs-icon-navigation-expand-more"
                 onLeftIconButtonTouchTap={this.handleToggle}
+                zDepth={3}
               />
-              <Home />
+
 
               <Drawer open={this.state.open}>
-                <MenuItem>Home</MenuItem>
-                <MenuItem>My Catalogs</MenuItem>
+                <MenuItem><Link to="/">Home</Link></MenuItem>
+                <MenuItem><Link to="/catalogues">My Catalogues</Link></MenuItem>
                 <MenuItem>Settings</MenuItem>
                 <RaisedButton className="toggle-drawer" label="CLOSE" primary={true} onClick={this.handleToggle}
                  />
-              </Drawer>              
+              </Drawer>
+
+              <Route exact path="/" component={Home}/>
+              <Route path="/catalogues" component={MyCatalogue}/>             
             </div>
           </MuiThemeProvider>
     );

@@ -37,7 +37,7 @@ export default class IndicatorsList extends Component {
     
 
         render(){
-            const { indicators, filterIndicators } = this.props;
+            const { indicators, filterIndicators, addItem } = this.props;
             
              return (<div>
                             <div style={styles.root}>
@@ -53,7 +53,11 @@ export default class IndicatorsList extends Component {
                                                         <CardHeader title={indicator.displayName}
                                                         />
                                                         <CardActions>
-                                                            <Toggle label="Export" />
+                                                            <Toggle label="Export" onToggle={(e,value) => {
+                                                                if(value){
+                                                                    addItem('indicator', indicator)
+                                                                }
+                                                            }} />
                                                         </CardActions>
                                                         
                                                 </Card>

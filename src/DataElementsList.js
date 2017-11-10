@@ -7,7 +7,6 @@ import {Card, CardActions, CardHeader} from 'material-ui/Card';
 import Subheader from 'material-ui/Subheader';
 import Toggle from 'material-ui/Toggle';
 
-import {Toolbar} from 'material-ui/Toolbar';
 import TextField from 'material-ui/TextField';
 
 const styles = {
@@ -38,7 +37,7 @@ export default class DataElementsList extends Component {
     
 
         render(){
-            const { dataElements, filterDataElements } = this.props;
+            const { dataElements, filterDataElements, addItem } = this.props;
              return (<div>
                             <div style={styles.root}>
                                 <Subheader className="home-subheader" inset={true}>DATA ELEMENTS</Subheader>
@@ -53,7 +52,11 @@ export default class DataElementsList extends Component {
                                                         <CardHeader title={dataElement.displayName}
                                                         />
                                                         <CardActions>
-                                                            <Toggle label="Export" />
+                                                            <Toggle label="Export" onToggle={(e,value) => {
+                                                                if(value){
+                                                                    addItem('dataElement',dataElement)
+                                                                }
+                                                            }} />
                                                         </CardActions>
                                                         
                                                 </Card>

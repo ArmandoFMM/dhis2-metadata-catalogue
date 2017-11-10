@@ -37,7 +37,7 @@ export default class DataSetList extends Component {
     
 
         render(){
-            const { dataSets, filterDataSets } = this.props;
+            const { dataSets, filterDataSets, addItem } = this.props;
              return (<div>
                             <div style={styles.root}>
                                 <Subheader className="home-subheader" inset={true}>DATA SETS</Subheader>
@@ -52,7 +52,11 @@ export default class DataSetList extends Component {
                                                         <CardHeader title={dataSet.displayName}
                                                         />
                                                         <CardActions>
-                                                            <Toggle label="Export" />
+                                                            <Toggle label="Export" onToggle={(e,value) => {
+                                                                if(value){
+                                                                    addItem('dataSet',dataSet)
+                                                                }
+                                                            }} />
                                                         </CardActions>
                                                         
                                                 </Card>

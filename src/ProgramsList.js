@@ -37,7 +37,7 @@ export default class ProgramsList extends Component {
     
 
         render(){
-            const { programs,  filterPrograms } = this.props;
+            const { programs,  filterPrograms, addItem } = this.props;
              return (<div>
                             <div style={styles.root}>
                                 <Subheader className="home-subheader" inset={true}>PROGRAMS</Subheader>
@@ -52,7 +52,11 @@ export default class ProgramsList extends Component {
                                                         <CardHeader title={program.displayName}
                                                         />
                                                         <CardActions>
-                                                            <Toggle label="Export" />
+                                                            <Toggle label="Export" onToggle={(e,value) => {
+                                                                    if(value){
+                                                                        addItem('program',program)
+                                                                    }
+                                                                }} />
                                                         </CardActions>
                                                         
                                                 </Card>
